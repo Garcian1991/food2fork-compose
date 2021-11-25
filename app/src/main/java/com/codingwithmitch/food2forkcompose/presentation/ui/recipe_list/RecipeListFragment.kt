@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -35,6 +36,7 @@ class RecipeListFragment : Fragment() {
 
     private val viewModel: RecipeListViewModel by viewModels()
 
+    @ExperimentalComposeUiApi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
