@@ -1,13 +1,11 @@
 package com.codingwithmitch.food2forkcompose.presentation.ui.recipe_list
 
-import android.os.Bundle
 import android.util.Log
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
-import com.codingwithmitch.food2forkcompose.R
 import com.codingwithmitch.food2forkcompose.presentation.components.RecipeList
 import com.codingwithmitch.food2forkcompose.presentation.components.SearchAppBar
 import com.codingwithmitch.food2forkcompose.presentation.theme.AppTheme
@@ -19,6 +17,7 @@ import com.codingwithmitch.food2forkcompose.util.TAG
 fun RecipeListScreen(
     isDarkTheme: Boolean,
     onToggleTheme: () -> Unit,
+    onNavigateToRecipeDetailScreen: (String) -> Unit,
     viewModel: RecipeListViewModel
 ) {
     Log.d(TAG, "RecipeListScreen: $viewModel")
@@ -67,9 +66,7 @@ fun RecipeListScreen(
                 onChangeScrollPosition = viewModel::onChangeRecipeScrollPosition,
                 page = page,
                 onTriggerNextPage = { viewModel.onTriggerEvent(RecipeListEvent.NextPageEvent) },
-                onNavigateToRecipeDetailScreen = {
-                    TODO("Navigate to recipe details")
-                }
+                onNavigateToRecipeDetailScreen = onNavigateToRecipeDetailScreen
             )
         }
     }
