@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                     val viewModel = hiltViewModel<RecipeViewModel>()
                     RecipeDetailScreen(
                         isDarkTheme = (application as BaseApplication).isDark.value,
-                        recipeId = navBackStackEntry.arguments?.getInt("recipeId") ?: 1,
+                        recipeId = navBackStackEntry.arguments?.getInt("recipeId"),
                         viewModel = viewModel
                     )
                 }

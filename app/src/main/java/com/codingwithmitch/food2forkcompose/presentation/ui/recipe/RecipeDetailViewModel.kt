@@ -26,43 +26,45 @@ constructor(
     private val recipeRepository: RecipeRepository,
     @Named("auth_token") private val token: String,
     private val state: SavedStateHandle,
-): ViewModel(){
+) : ViewModel() {
 
     val recipe: MutableState<Recipe?> = mutableStateOf(null)
 
     val loading = mutableStateOf(false)
 
+    val onLoad: MutableState<Boolean> = mutableStateOf(false)
+
     init {
         // restore if process dies
-        state.get<Int>(STATE_KEY_RECIPE)?.let{ recipeId ->
+        state.get<Int>(STATE_KEY_RECIPE)?.let { recipeId ->
             onTriggerEvent(RecipeEvent.GetRecipeEvent(recipeId))
         }
     }
 
-    fun onTriggerEvent(event: RecipeEvent){
+    fun onTriggerEvent(event: RecipeEvent) {
         viewModelScope.launch {
             try {
-                when(event){
+                when (event) {
                     is RecipeEvent.GetRecipeEvent -> {
-                        if(recipe.value == null){
+                        if (recipe.value == null) {
                             getRecipe(event.id)
                         }
                     }
                 }
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 Log.e(TAG, "launchJob: Exception: ${e}, ${e.cause}")
                 e.printStackTrace()
             }
         }
     }
 
-    private suspend fun getRecipe(id: Int){
+    private suspend fun getRecipe(id: Int) {
         loading.value = true
 
         // simulate a delay to show loading
         delay(1000)
 
-        val recipe = recipeRepository.get(token=token, id=id)
+        val recipe = recipeRepository.get(token = token, id = id)
         this.recipe.value = recipe
 
         state.set(STATE_KEY_RECIPE, recipe.id)
