@@ -1,8 +1,10 @@
+import org.gradle.model.internal.core.ModelNodes.withType
+
 apply(plugin = "com.github.ben-manes.versions")
 
 buildscript {
-    val benMavenVersion  = "0.38.0"
-    val gradle = "7.0.3"
+    val benMavenVersion  = "0.39.0"
+    val gradle = Versions.gradle
     val kotlinVersion = Versions.kotlin
 
     repositories {
@@ -37,5 +39,18 @@ fun isNonStable(version: String): Boolean {
 tasks.withType<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask> {
     rejectVersionIf {
         isNonStable(candidate.version) && !isNonStable(currentVersion)
+    }
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions {
+        useIR = true
+        freeCompilerArgs = listOf(
+            "-Xopt-in=kotlin.RequiresOptIn",
+            "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-Xopt-in=kotlinx.coroutines.FlowPreview",
+            "-Xopt-in=kotlin.Experimental"
+        )
+        jvmTarget = "1.8"
     }
 }

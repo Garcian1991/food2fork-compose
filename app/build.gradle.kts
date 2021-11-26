@@ -1,18 +1,9 @@
-import AndroidX.constraint_layout
-import AndroidX.hilt_lifecycle_viewmodel
-import AnnotationProcessing.glide_compiler
-import AnnotationProcessing.hilt_compiler
-import Glide.glide
-import Google.hilt_android
-import Square.retrofit
-import Square.retrofit_gson
-
 plugins {
-    id ("com.android.application")
+    id("com.android.application")
     kotlin("android")
     kotlin("kapt")
-    id ("dagger.hilt.android.plugin")
-    id ("kotlin-parcelize")
+    id("dagger.hilt.android.plugin")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -29,7 +20,10 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -46,45 +40,57 @@ android {
         compose = true
     }
     packagingOptions {
-        exclude("/META-INF/{AL2.0,LGPL2.1}")
+        resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
     }
 }
 
 dependencies {
+    implementation(AndroidX.core_ktx)
+    implementation(AndroidX.app_compat)
+    implementation(AndroidX.compose_constraint_layout)
+    implementation(AndroidX.ui_tooling)
+    implementation(AndroidX.compose_ui)
+    implementation(AndroidX.compose_foundation)
+    implementation(AndroidX.compose_material)
+    implementation(AndroidX.compose_activity)
+    implementation(AndroidX.compose_icons_core)
+    implementation(AndroidX.compose_icons_extended)
+    implementation(AndroidX.navigation_compose)
+    implementation(AndroidX.navigation_hilt)
+    implementation(AndroidX.room_runtime)
+    implementation(AndroidX.room_ktx)
+    implementation(AndroidX.datastore)
+    implementation(AndroidX.hilt_lifecycle_viewmodel)
 
-    implementation ("org.jetbrains.kotlin:kotlin-stdlib:${JetBrains.kotlin_stdlib}")
-    implementation (AndroidX.core_ktx)
+    implementation(Google.material)
+    implementation(Google.hilt_android)
 
-    implementation (AndroidX.app_compat)
+    implementation(Glide.glide)
 
-    implementation (Google.material)
+    implementation(JetBrains.kotlin_stdlib)
 
-    implementation (constraint_layout)
+    implementation(Square.retrofit)
+    implementation(Square.retrofit_gson)
+    implementation(Square.okHttp)
+    implementation(Square.leak_canary)
 
-    implementation (AndroidX.compose_ui)
-    implementation (AndroidX.compose_foundation)
-//    implementation ("androidx.compose.runtime:runtime-livedata:${AndroidX.compose}")
-//    implementation ("androidx.compose.runtime:runtime-rxjava2:$compose_version")
-    implementation (AndroidX.compose_material)
-    implementation (AndroidX.compose_icons_core)
-    implementation (AndroidX.compose_icons_extended)
-    implementation ("androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02")
+    kapt(AnnotationProcessing.hilt_compiler)
+    kapt(AnnotationProcessing.glide_compiler)
+    kapt(AnnotationProcessing.room_compiler)
 
-    implementation (AndroidX.nav_fragment_ktx)
-    implementation (AndroidX.nav_ui_ktx)
-
-    implementation (retrofit)
-    implementation (retrofit_gson)
-
-    implementation (hilt_android)
-    kapt (hilt_compiler)
-
-    implementation (hilt_lifecycle_viewmodel)
-    kapt (hilt_lifecycle_viewmodel)
-
-    implementation (glide)
-    kapt (glide_compiler)
-
+    // TESTING
+//    testImplementation(UnitTest.jupiter_api)
+//    testImplementation(UnitTest.jupiter_params)
+//    testRuntimeOnly(UnitTest.jupiter_engine)
+//
+//    // Mock web server
+//    testImplementation(UnitTest.mock_web_server)
+//    testImplementation(UnitTest.okHttp)
+//
+//    androidTestImplementation( "androidx.test.ext:junit:1.1.3")
+//
+//    // compose testing
+//    implementation(InstrumentationTest.compose_ui)
 }
 
 

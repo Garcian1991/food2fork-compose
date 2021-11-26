@@ -14,20 +14,20 @@ import org.junit.Test
  * the time compose reaches beta. So I'm going to omit them.
  * https://developer.android.com/jetpack/compose/testing
  */
-@ExperimentalCoroutinesApi
-@ExperimentalMaterialApi
-class MainActivityTest {
-
-  @get:Rule
-  val composeTestRule = createAndroidComposeRule<MainActivity>()
-
-  @Test
-  fun SimpleTest(){
-    composeTestRule.onNodeWithText("Search").assertIsDisplayed()
-  }
-
-
-}
+//@ExperimentalCoroutinesApi
+//@ExperimentalMaterialApi
+//class MainActivityTest {
+//
+//  @get:Rule
+//  val composeTestRule = createAndroidComposeRule<MainActivity>()
+//
+//  @Test
+//  fun SimpleTest(){
+//    composeTestRule.onNodeWithText("Search").assertIsDisplayed()
+//  }
+//
+//
+//}
 
 
 
