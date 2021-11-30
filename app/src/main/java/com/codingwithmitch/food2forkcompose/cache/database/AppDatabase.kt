@@ -1,9 +1,9 @@
-package com.codingwithmitch.food2forkcompose.cash.database
+package com.codingwithmitch.food2forkcompose.cache.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.codingwithmitch.food2forkcompose.cash.RecipeDao
-import com.codingwithmitch.food2forkcompose.cash.model.RecipeEntity
+import com.codingwithmitch.food2forkcompose.cache.RecipeDao
+import com.codingwithmitch.food2forkcompose.cache.model.RecipeEntity
 
 @Database(entities = [RecipeEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {

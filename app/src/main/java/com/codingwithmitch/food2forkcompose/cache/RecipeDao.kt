@@ -1,10 +1,10 @@
-package com.codingwithmitch.food2forkcompose.cash
+package com.codingwithmitch.food2forkcompose.cache
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.codingwithmitch.food2forkcompose.cash.model.RecipeEntity
+import com.codingwithmitch.food2forkcompose.cache.model.RecipeEntity
 import com.codingwithmitch.food2forkcompose.util.RECIPE_PAGINATION_PAGE_SIZE
 
 

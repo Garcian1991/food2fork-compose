@@ -2,7 +2,7 @@ package com.codingwithmitch.food2forkcompose.interactors.recipe
 
 import com.codingwithmitch.food2forkcompose.cache.AppDatabaseFake
 import com.codingwithmitch.food2forkcompose.cache.RecipeDaoFake
-import com.codingwithmitch.food2forkcompose.cache.model.RecipeEntityMapper
+import com.codingwithmitch.food2forkcompose.network.model.RecipeEntityMapper
 import com.codingwithmitch.food2forkcompose.domain.model.Recipe
 import com.codingwithmitch.food2forkcompose.interactors.recipe_list.SearchRecipes
 import com.codingwithmitch.food2forkcompose.network.RecipeService

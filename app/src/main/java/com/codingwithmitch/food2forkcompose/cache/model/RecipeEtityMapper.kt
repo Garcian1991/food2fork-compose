@@ -1,6 +1,5 @@
-package com.codingwithmitch.food2forkcompose.network.model
+package com.codingwithmitch.food2forkcompose.cache.model
 
-import com.codingwithmitch.food2forkcompose.cache.model.RecipeEntity
 import com.codingwithmitch.food2forkcompose.domain.model.Recipe
 import com.codingwithmitch.food2forkcompose.domain.util.DomainMapper
 import com.codingwithmitch.food2forkcompose.util.DateUtils

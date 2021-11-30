@@ -1,4 +1,4 @@
-package com.codingwithmitch.food2forkcompose.cash.model
+package com.codingwithmitch.food2forkcompose.cache.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -1,8 +1,8 @@
 package com.codingwithmitch.food2forkcompose.di
 
 import androidx.room.Room
-import com.codingwithmitch.food2forkcompose.cash.RecipeDao
-import com.codingwithmitch.food2forkcompose.cash.database.AppDatabase
+import com.codingwithmitch.food2forkcompose.cache.RecipeDao
+import com.codingwithmitch.food2forkcompose.cache.database.AppDatabase
 import com.codingwithmitch.food2forkcompose.presentation.BaseApplication
 import dagger.Module
 import dagger.Provides
