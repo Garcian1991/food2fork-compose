@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingwithmitch.food2forkcompose.domain.model.Recipe
+import com.codingwithmitch.food2forkcompose.interactors.recipe_list.RestoreRecipes
 import com.codingwithmitch.food2forkcompose.interactors.recipe_list.SearchRecipes
 import com.codingwithmitch.food2forkcompose.repository.RecipeRepository
 import com.codingwithmitch.food2forkcompose.util.TAG
@@ -30,7 +31,7 @@ class RecipeListViewModel
 @Inject
 constructor(
     private val searchRecipes: SearchRecipes,
-    private val repository: RecipeRepository,
+    private val restoreRecipes: RestoreRecipes,
     @Named("auth_token") private val token: String,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
@@ -94,21 +95,22 @@ constructor(
         }
     }
 
-    private suspend fun restoreState() {
-        loading.value = true
-        val results: MutableList<Recipe> = mutableListOf()
-        for (p in 1..page.value) {
-            val result = repository.search(
-                token = token,
-                page = p,
-                query = query.value
-            )
-            results.addAll(result)
-            if (p == page.value) { // done
-                recipes.value = results
-                loading.value = false
+    private fun restoreState() {
+        restoreRecipes.execute(
+            page = page.value,
+            query = query.value
+        )
+            .onEach { dataState ->
+                loading.value = dataState.loading
+                dataState.data?.let { list ->
+                    appendRecipes(list)
+                }
+
+                dataState.error?.let { error ->
+                    Log.e(TAG, "nextPage: $error")
+                }
             }
-        }
+            .launchIn(viewModelScope)
     }
 
     private fun newSearch() {
