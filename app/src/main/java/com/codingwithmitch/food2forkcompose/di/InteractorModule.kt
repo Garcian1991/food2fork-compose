@@ -3,6 +3,7 @@ package com.codingwithmitch.food2forkcompose.di
 import com.codingwithmitch.food2fork.network.RecipeService
 import com.codingwithmitch.food2forkcompose.cache.RecipeDao
 import com.codingwithmitch.food2forkcompose.cache.model.RecipeEntityMapper
+import com.codingwithmitch.food2forkcompose.interactors.recipe.GetRecipe
 import com.codingwithmitch.food2forkcompose.interactors.recipe_list.RestoreRecipes
 import com.codingwithmitch.food2forkcompose.interactors.recipe_list.SearchRecipes
 import com.codingwithmitch.food2forkcompose.network.model.RecipeDtoMapper
@@ -41,6 +42,22 @@ object InteractorModule {
         return RestoreRecipes(
             recipeDao = recipeDao,
             entityMapper = entityMapper,
+        )
+    }
+
+    @ViewModelScoped
+    @Provides
+    fun provideGetRecipe(
+        recipeService: RecipeService,
+        recipeDao: RecipeDao,
+        entityMapper: RecipeEntityMapper,
+        dtoMapper: RecipeDtoMapper
+    ): GetRecipe {
+        return GetRecipe(
+            recipeDao = recipeDao,
+            recipeService = recipeService,
+            entityMapper = entityMapper,
+            recipeDtoMapper = dtoMapper
         )
     }
 }
