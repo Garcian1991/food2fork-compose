@@ -46,7 +46,7 @@ fun AppTheme(
     darkTheme: Boolean,
     displayProgressBar: Boolean,
     scaffoldState: ScaffoldState,
-    dialogQueue: Queue<GenericDialogInfo>,
+    dialogQueue: MutableList<GenericDialogInfo>,
     content: @Composable () -> Unit,
 ) {
     MaterialTheme(
@@ -76,9 +76,9 @@ fun AppTheme(
 
 @Composable
 fun ProcessDialogQueue(
-    dialogQueue: Queue<GenericDialogInfo>
+    dialogQueue: MutableList<GenericDialogInfo>
 ) {
-    dialogQueue.peek()?.let { genericDialogInfo ->
+    dialogQueue.firstOrNull()?.let { genericDialogInfo ->
         GenericDialog(
             modifier = Modifier,
             onDismiss = genericDialogInfo.onDismiss,
