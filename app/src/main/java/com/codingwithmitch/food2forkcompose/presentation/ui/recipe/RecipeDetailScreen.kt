@@ -8,11 +8,13 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.codingwithmitch.food2forkcompose.presentation.components.GenericDialogInfo
 import com.codingwithmitch.food2forkcompose.presentation.components.IMAGE_HEIGHT
 import com.codingwithmitch.food2forkcompose.presentation.components.LoadingRecipeShimmer
 import com.codingwithmitch.food2forkcompose.presentation.components.RecipeView
 import com.codingwithmitch.food2forkcompose.presentation.theme.AppTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.util.*
 
 @ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
@@ -35,12 +37,15 @@ fun RecipeDetailScreen(
 
         val recipe = viewModel.recipe.value
 
+        val dialogQueue = viewModel.dialogQueue
+
         val scaffoldState = rememberScaffoldState()
 
         AppTheme(
             displayProgressBar = loading,
             scaffoldState = scaffoldState,
             darkTheme = isDarkTheme,
+            dialogQueue = dialogQueue.queue
         ) {
             Scaffold(
                 scaffoldState = scaffoldState,

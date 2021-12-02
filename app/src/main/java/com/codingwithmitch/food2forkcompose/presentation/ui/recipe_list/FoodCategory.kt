@@ -3,7 +3,8 @@ package com.codingwithmitch.food2forkcompose.presentation.ui.recipe_list
 import com.codingwithmitch.food2forkcompose.presentation.ui.recipe_list.FoodCategory.*
 
 
-enum class FoodCategory(val value: String){
+enum class FoodCategory(val value: String) {
+    ERROR("error"),
     CHICKEN("Chicken"),
     BEEF("Beef"),
     SOUP("Soup"),
@@ -15,10 +16,12 @@ enum class FoodCategory(val value: String){
     DONUT("Donut"),
 }
 
-fun getAllFoodCategories(): List<FoodCategory>{
+fun getAllFoodCategories(): List<FoodCategory> {
     return listOf(
+        ERROR,
         CHICKEN,
-        BEEF, SOUP, DESSERT, VEGETARIAN, MILK, VEGAN, PIZZA, DONUT)
+        BEEF, SOUP, DESSERT, VEGETARIAN, MILK, VEGAN, PIZZA, DONUT
+    )
 }
 
 fun getFoodCategory(value: String): FoodCategory? {

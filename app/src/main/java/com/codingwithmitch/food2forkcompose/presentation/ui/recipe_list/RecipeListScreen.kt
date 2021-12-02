@@ -10,7 +10,9 @@ import com.codingwithmitch.food2forkcompose.presentation.components.RecipeList
 import com.codingwithmitch.food2forkcompose.presentation.components.SearchAppBar
 import com.codingwithmitch.food2forkcompose.presentation.theme.AppTheme
 import com.codingwithmitch.food2forkcompose.util.TAG
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 @ExperimentalComposeUiApi
 @ExperimentalMaterialApi
 @Composable
@@ -34,10 +36,13 @@ fun RecipeListScreen(
 
     val scaffoldState = rememberScaffoldState()
 
+    val dialogQueue = viewModel.dialogQueue
+
     AppTheme(
         displayProgressBar = loading,
         scaffoldState = scaffoldState,
         darkTheme = isDarkTheme,
+        dialogQueue = dialogQueue.queue
     ) {
 
         Scaffold(

@@ -28,6 +28,11 @@ class SearchRecipes(
             // show progress bar cos API is fast
             delay(1000)
 
+            // force error for testing
+            if (query == "error") {
+                throw Exception("Search failed!")
+            }
+
             // TODO("Check if there is a internet connection")
             val recipes = getRecipesFromNetwork(token, page, query)
 
