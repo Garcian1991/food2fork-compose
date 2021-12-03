@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.codingwithmitch.food2forkcompose.domain.model.Recipe
 import com.codingwithmitch.food2forkcompose.interactors.recipe.GetRecipe
 import com.codingwithmitch.food2forkcompose.presentation.components.util.DialogQueue
+import com.codingwithmitch.food2forkcompose.presentation.util.ConnectivityManager
 import com.codingwithmitch.food2forkcompose.util.TAG
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -28,6 +29,7 @@ constructor(
     private val getRecipe: GetRecipe,
     @Named("auth_token") private val token: String,
     private val state: SavedStateHandle,
+    private val connectivityManager: ConnectivityManager
 ) : ViewModel() {
 
     val recipe: MutableState<Recipe?> = mutableStateOf(null)
@@ -63,7 +65,7 @@ constructor(
     }
 
     private fun getRecipe(id: Int) {
-        getRecipe.execute(id, token)
+        getRecipe.execute(id, token, connectivityManager.isNetworkAvailable)
             .onEach { dataState ->
                 loading.value = dataState.loading
                 dataState.data?.let { data ->

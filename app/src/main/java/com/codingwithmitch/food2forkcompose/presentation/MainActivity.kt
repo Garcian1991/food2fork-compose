@@ -5,8 +5,6 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.HiltViewModelFactory
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -18,11 +16,26 @@ import com.codingwithmitch.food2forkcompose.presentation.ui.recipe.RecipeDetailS
 import com.codingwithmitch.food2forkcompose.presentation.ui.recipe.RecipeViewModel
 import com.codingwithmitch.food2forkcompose.presentation.ui.recipe_list.RecipeListScreen
 import com.codingwithmitch.food2forkcompose.presentation.ui.recipe_list.RecipeListViewModel
+import com.codingwithmitch.food2forkcompose.presentation.util.ConnectivityManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var connectivityManager: ConnectivityManager
+
+    override fun onStart() {
+        super.onStart()
+        connectivityManager.registerConnectionObserver(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        connectivityManager.unregisterConnectionObserver(this)
+    }
 
     @ExperimentalCoroutinesApi
     @ExperimentalMaterialApi
@@ -38,7 +51,8 @@ class MainActivity : AppCompatActivity() {
                         isDarkTheme = (application as BaseApplication).isDark.value,
                         onToggleTheme = (application as BaseApplication)::toggleLightTheme,
                         onNavigateToRecipeDetailScreen = navController::navigate,
-                        viewModel = viewModel
+                        viewModel = viewModel,
+                        isNetworkAvailable = connectivityManager.isNetworkAvailable
                     )
 
                 }
@@ -53,7 +67,8 @@ class MainActivity : AppCompatActivity() {
                     RecipeDetailScreen(
                         isDarkTheme = (application as BaseApplication).isDark.value,
                         recipeId = navBackStackEntry.arguments?.getInt("recipeId"),
-                        viewModel = viewModel
+                        viewModel = viewModel,
+                        isNetworkAvailable = connectivityManager.isNetworkAvailable
                     )
                 }
             }

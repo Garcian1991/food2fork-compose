@@ -22,7 +22,8 @@ import java.util.*
 fun RecipeDetailScreen(
     isDarkTheme: Boolean,
     recipeId: Int?,
-    viewModel: RecipeViewModel
+    viewModel: RecipeViewModel,
+    isNetworkAvailable: Boolean
 ) {
     if (recipeId == null) {
         TODO("Show invalid recipe")
@@ -43,6 +44,7 @@ fun RecipeDetailScreen(
 
         AppTheme(
             displayProgressBar = loading,
+            isNetworkAvailable = isNetworkAvailable,
             scaffoldState = scaffoldState,
             darkTheme = isDarkTheme,
             dialogQueue = dialogQueue.queue

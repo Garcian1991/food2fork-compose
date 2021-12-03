@@ -10,6 +10,7 @@ import com.codingwithmitch.food2forkcompose.domain.model.Recipe
 import com.codingwithmitch.food2forkcompose.interactors.recipe_list.RestoreRecipes
 import com.codingwithmitch.food2forkcompose.interactors.recipe_list.SearchRecipes
 import com.codingwithmitch.food2forkcompose.presentation.components.util.DialogQueue
+import com.codingwithmitch.food2forkcompose.presentation.util.ConnectivityManager
 import com.codingwithmitch.food2forkcompose.util.TAG
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -33,6 +34,7 @@ constructor(
     private val restoreRecipes: RestoreRecipes,
     @Named("auth_token") private val token: String,
     private val savedStateHandle: SavedStateHandle,
+    private val connectivityManager: ConnectivityManager
 ) : ViewModel() {
 
 
@@ -122,7 +124,8 @@ constructor(
         searchRecipes.execute(
             token = token,
             page = page.value,
-            query = query.value
+            query = query.value,
+            isNetworkAvailable = connectivityManager.isNetworkAvailable
         )
             .onEach { dataState ->
                 loading.value = dataState.loading
@@ -151,7 +154,9 @@ constructor(
                 searchRecipes.execute(
                     token = token,
                     page = page.value,
-                    query = query.value
+                    query = query.value,
+                    isNetworkAvailable = connectivityManager.isNetworkAvailable
+
                 )
                     .onEach { dataState ->
                         loading.value = dataState.loading
