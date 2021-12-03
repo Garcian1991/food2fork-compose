@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
@@ -11,6 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.codingwithmitch.food2forkcompose.datastore.SettingsProvider
 import com.codingwithmitch.food2forkcompose.presentation.navigation.Screen
 import com.codingwithmitch.food2forkcompose.presentation.ui.recipe.RecipeDetailScreen
 import com.codingwithmitch.food2forkcompose.presentation.ui.recipe.RecipeViewModel
@@ -19,6 +23,7 @@ import com.codingwithmitch.food2forkcompose.presentation.ui.recipe_list.RecipeLi
 import com.codingwithmitch.food2forkcompose.presentation.util.ConnectivityManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -26,6 +31,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var connectivityManager: ConnectivityManager
+
+    @Inject
+    lateinit var settingsProvider: SettingsProvider
 
     override fun onStart() {
         super.onStart()
@@ -44,12 +52,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
+            val isDarkTheme by settingsProvider.isDarkTheme.collectAsState(initial = false)
+            val scope = rememberCoroutineScope()
             NavHost(navController = navController, startDestination = Screen.RecipeList.route) {
                 composable(route = Screen.RecipeList.route) { navBackStackEntry ->
                     val viewModel = hiltViewModel<RecipeListViewModel>()
                     RecipeListScreen(
-                        isDarkTheme = (application as BaseApplication).isDark.value,
-                        onToggleTheme = (application as BaseApplication)::toggleLightTheme,
+                        isDarkTheme = isDarkTheme,
+                        onToggleTheme = { scope.launch { settingsProvider.switchToDarkTheme(!isDarkTheme) } },
                         onNavigateToRecipeDetailScreen = navController::navigate,
                         viewModel = viewModel,
                         isNetworkAvailable = connectivityManager.isNetworkAvailable
@@ -65,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                 ) { navBackStackEntry ->
                     val viewModel = hiltViewModel<RecipeViewModel>()
                     RecipeDetailScreen(
-                        isDarkTheme = (application as BaseApplication).isDark.value,
+                        isDarkTheme = isDarkTheme,
                         recipeId = navBackStackEntry.arguments?.getInt("recipeId"),
                         viewModel = viewModel,
                         isNetworkAvailable = connectivityManager.isNetworkAvailable
