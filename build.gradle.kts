@@ -17,6 +17,7 @@ buildscript {
         classpath ("com.github.ben-manes:gradle-versions-plugin:$benMavenVersion")
         classpath(kotlin("gradle-plugin", kotlinVersion))
         classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}")
+        classpath ("de.mannodermaus.gradle.plugins:android-junit5:${Versions.junit5}")
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle.kts files
     }

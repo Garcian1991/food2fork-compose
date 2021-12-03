@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
+    id("de.mannodermaus.android-junit5")
 }
 
 android {
@@ -16,6 +17,7 @@ android {
         versionName = Versions.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders["android:exported"] = "true"
     }
     buildTypes {
         getByName("release") {
@@ -79,18 +81,18 @@ dependencies {
     kapt(AnnotationProcessing.room_compiler)
 
     // TESTING
-//    testImplementation(UnitTest.jupiter_api)
-//    testImplementation(UnitTest.jupiter_params)
-//    testRuntimeOnly(UnitTest.jupiter_engine)
-//
-//    // Mock web server
-//    testImplementation(UnitTest.mock_web_server)
-//    testImplementation(UnitTest.okHttp)
-//
-//    androidTestImplementation( "androidx.test.ext:junit:1.1.3")
-//
-//    // compose testing
-//    implementation(InstrumentationTest.compose_ui)
+    testImplementation(UnitTest.jupiter_api)
+    testImplementation(UnitTest.jupiter_params)
+    testRuntimeOnly(UnitTest.jupiter_engine)
+
+    // Mock web server
+    testImplementation(UnitTest.mock_web_server)
+    testImplementation(UnitTest.okHttp)
+
+    androidTestImplementation( "androidx.test.ext:junit:1.1.3")
+
+    // compose testing
+    implementation(InstrumentationTest.compose_ui)
 }
 
 

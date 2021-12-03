@@ -1,11 +1,12 @@
 package com.codingwithmitch.food2forkcompose.cache
 
-import com.codingwithmitch.food2forkcompose.cache.model.RecipeDto
+import com.codingwithmitch.food2forkcompose.cache.model.RecipeEntity
+
 
 class AppDatabaseFake {
 
     // fake for recipe table in local db
-    val recipes = mutableListOf<RecipeDto>()
+    val recipes = mutableListOf<RecipeEntity>()
 
 
 }

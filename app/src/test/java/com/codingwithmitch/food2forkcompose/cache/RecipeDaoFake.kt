@@ -1,22 +1,23 @@
 package com.codingwithmitch.food2forkcompose.cache
 
-import com.codingwithmitch.food2forkcompose.cache.model.RecipeDto
+import com.codingwithmitch.food2forkcompose.cache.model.RecipeEntity
+
 
 class RecipeDaoFake(
     private val appDatabaseFake: AppDatabaseFake
 ): RecipeDao {
 
-    override suspend fun insertRecipe(recipe: RecipeDto): Long {
+    override suspend fun insertRecipe(recipe: RecipeEntity): Long {
         appDatabaseFake.recipes.add(recipe)
         return 1 // return success
     }
 
-    override suspend fun insertRecipes(recipes: List<RecipeDto>): LongArray {
+    override suspend fun insertRecipes(recipes: List<RecipeEntity>): LongArray {
         appDatabaseFake.recipes.addAll(recipes)
         return longArrayOf(1) // return success
     }
 
-    override suspend fun getRecipeById(id: Int): RecipeDto? {
+    override suspend fun getRecipeById(id: Int): RecipeEntity? {
         return appDatabaseFake.recipes.find { it.id == id }
     }
 
@@ -38,11 +39,11 @@ class RecipeDaoFake(
         query: String,
         page: Int,
         pageSize: Int
-    ): List<RecipeDto> {
+    ): List<RecipeEntity> {
         return appDatabaseFake.recipes // return the entire list for simplicity
     }
 
-    override suspend fun getAllRecipes(page: Int, pageSize: Int): List<RecipeDto> {
+    override suspend fun getAllRecipes(page: Int, pageSize: Int): List<RecipeEntity> {
         return appDatabaseFake.recipes // return the entire list for simplicity
     }
 
@@ -50,11 +51,11 @@ class RecipeDaoFake(
         query: String,
         page: Int,
         pageSize: Int
-    ): List<RecipeDto> {
+    ): List<RecipeEntity> {
         return appDatabaseFake.recipes // return the entire list for simplicity
     }
 
-    override suspend fun restoreAllRecipes(page: Int, pageSize: Int): List<RecipeDto> {
+    override suspend fun restoreAllRecipes(page: Int, pageSize: Int): List<RecipeEntity> {
         return appDatabaseFake.recipes // return the entire list for simplicity
     }
 }

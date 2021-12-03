@@ -1,7 +1,5 @@
 package com.codingwithmitch.food2forkcompose.network.data
 
-import com.codingwithmitch.food2forkcompose.network.model.RecipeDto
-
 object MockWebServerResponses {
 
     /**
